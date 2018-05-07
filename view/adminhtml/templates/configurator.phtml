@@ -1,0 +1,50 @@
+<?php
+/**
+ *    Copyright 2018 Humanswitch
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+/**
+ * @var \Humanswitch\Consentcookie\Block\Configurator $block
+ */
+if ($block->isEnabled()): ?>
+
+    <div id="ccc-container"></div>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (event) {
+            if (typeof CCC !== "undefined") {
+                var CCConfigurator = new CCC('#ccc-container');
+
+                <?php if($configuration = $block->getConfiguration(true)): ?>
+                CCConfigurator.setConfig(<?php echo $configuration ?>);
+                <?php endif; ?>
+
+                CCConfigurator.setOptions({
+                    copyButton: false,
+                    appsEndpoint: 'https://www.consentcookie.nl/configurator/static/json/configurator-applications.json'
+                });
+
+                CCConfigurator.onChange(function (configurator, config) {
+                    document.getElementById('consentcookie_general_configuration').value = JSON
+                        .stringify(config, null, 2);
+                }).mount();
+            } else {
+                jQuery('#ccc-container').text('<?php echo __('Could not load CCC... contact support for more information.') ?>');
+            }
+        });
+    </script>
+<?php else: ?>
+    <p><?php echo __('Enable consentcookie in order to use the configurator.') ?></p>
+<?php endif; ?>

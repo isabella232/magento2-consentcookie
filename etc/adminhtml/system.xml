@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <tab id="humanswitch" sortOrder="999999" class="humanswitch-tab">
+            <label>Humanswitch</label>
+        </tab>
+
+        <section id="consentcookie" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+            <class>separator-top section-consentcookie</class>
+            <label>ConsentCookie</label>
+            <tab>humanswitch</tab>
+            <resource>Humanswitch_Consentcookie::config_consentcookie</resource>
+
+            <group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+                <label>General</label>
+                <comment>&lt;strong&gt;Information:&lt;/strong&gt;&lt;br/&gt; For more information refer to the &lt;a href="https://github.com/humanswitch/magento2-consentcookie"&gt;GitHub&lt;/a&gt; page or the &lt;a href="https://www.consentcookie.nl/"&gt;website&lt;/a&gt; &lt;br/&gt;&lt;br/&gt;</comment>
+
+                <field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="override_analytics" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="15" translate="label" type="select">
+                    <label>Override Magento Google Analytics</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Overrides Magento's Google Analytics template to comply with ConsentCookie</comment>
+                </field>
+
+                <field id="configuration" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="textarea">
+                    <label>Configuration</label>
+                    <comment><![CDATA[This field contains the configuration in JSON format. Use the <a onclick="Fieldset.toggleCollapse('consentcookie_configurator_group');">configurator</a> in the section below to change this.]]></comment>
+                </field>
+            </group>
+
+            <group id="configurator_group" showInWebsite="1" showInStore="1" showInDefault="1" sortOrder="20" translate="label">
+                <label>Consentcookie Configurator</label>
+                <comment>&lt;strong&gt;How to use the configurator:&lt;/strong&gt;&lt;br/&gt; The configurator allows to generate our configuration for consentcookie by using a simple and straightforward interface. The configurator will automatically update the configuration field above.&lt;br/&gt;&lt;br/&gt;</comment>
+
+                <field id="configurator" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="textarea">
+                    <frontend_model>Humanswitch\Consentcookie\Block\System\Config\Form\Field\Configurator</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Humanswitch_Consentcookie::css/main.css"/>
+
+        <css src="Humanswitch_Consentcookie::consentcookie/css/app.css"/>
+
+        <script src="Humanswitch_Consentcookie::consentcookie/js/manifest.js"/>
+        <script src="Humanswitch_Consentcookie::consentcookie/js/vendor.js"/>
+        <script src="Humanswitch_Consentcookie::consentcookie/js/app.js"/>
+    </head>
+</page>
