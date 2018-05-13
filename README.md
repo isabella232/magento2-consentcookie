@@ -53,4 +53,11 @@ Make sure all cache types are cleared after changing configurations. Not just th
 
 ## 1.0.0
 
+* Added CDN options
+* Refactored code
+* Redefined admin settings
+* Translation updates
+
+## 0.1.0
+
 * initial version
