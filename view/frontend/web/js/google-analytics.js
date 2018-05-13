@@ -98,21 +98,14 @@ define([
      * @param {Object} config
      */
     return function (config) {
-
-        console.log('load custom analytics');
-
         if (typeof window.ConsentCookie !== "undefined") {
             if (window.ConsentCookie.get("ga").flag === 1) {
                 init(config);
-            } else {
-                console.log('GA is disabled');
             }
         } else {
             window.addEventListener('CCInit', function (e) {
                 if (window.ConsentCookie.get("ga").flag === 1) {
                     init(config);
-                } else {
-                    console.log('GA is disabled');
                 }
             });
         }

@@ -17,12 +17,30 @@
 /**
  * @var \Humanswitch\Consentcookie\Block\Consentcookie $block
  */
-if ($block->isEnabled() && $configuration = $block->getConfiguration(true)): ?>
-    <script type="text/x-magento-init">
-        {
-            "*": {
-                    "Humanswitch_Consentcookie/js/mage-consentcookie" : <?php echo $block->getConfiguration(true) ?>
+if ($block->isEnabled() && $configuration = $block->getConsentCookieConfiguration()): ?>
+    <script type="text/javascript">
+        require([
+            'jquery',
+            '<?php echo $block->getScriptSource() ?>'
+        ], function ($, ConsentCookie) {
+            'use strict';
+
+            window.ConsentCookie = ConsentCookie;
+            window.ConsentCookie.init(<?php echo $configuration ?>);
+
+            var CCInitEvent = new CustomEvent('CCInit', {
+                detail: {
+                    ConsentCookie: ConsentCookie,
                 }
-        }
+            });
+
+            window.ConsentCookie.on('connection', function (e) {
+                if (e.id == 'ga' && e.state == 'enabled') {
+                    window.dispatchEvent(CCInitEvent);
+                }
+            });
+
+            window.dispatchEvent(CCInitEvent);
+        });
     </script>
 <?php endif; ?>

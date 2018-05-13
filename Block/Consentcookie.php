@@ -30,11 +30,6 @@ class Consentcookie extends \Magento\Framework\View\Element\Template
     protected $helper;
 
     /**
-     * @var LayoutFactory
-     */
-    protected $_viewLayoutFactory;
-
-    /**
      * Consentcookie constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Humanswitch\Consentcookie\Helper\Config $helper
@@ -67,18 +62,27 @@ class Consentcookie extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Get Consentcookie configuration
-     *
-     * @param bool $validate
      * @return bool|mixed
      */
-    public function getConfiguration($validate = true)
+    public function getConsentCookieConfiguration()
     {
-        $configuration = $this->helper->getConfiguration();
-        if ($validate && !$this->helper->validateJSONConfiguration($configuration)) {
-            return false;
-        }
-        return $configuration;
+        return $this->helper->getConsentCookieConfiguration();
     }
 
+    /**
+     * Gets local or CDN script source
+     *
+     * @return mixed|string
+     */
+    public function getScriptSource()
+    {
+        $source = 'Humanswitch_Consentcookie/consentcookie/consentcookie';
+        if ($this->helper->getConfiguration('method') === 'cdn') {
+            $cdnUrl = $this->helper->getConfiguration('cdn_url');
+            if(\strlen($cdnUrl) > 0){
+                return $cdnUrl;
+            }
+        }
+        return $source;
+    }
 }

@@ -25,40 +25,38 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
     /**
-     * Consentcookie configuration path
+     * ConsentCookie general settings path
      */
-    CONST CONFIG_CC = 'consentcookie/general';
+    CONST CONFIG_GENERAL = 'consentcookie/general';
 
     /**
-     * Gets settings from system configuration
+     * ConsentCookie configurator settings path
+     */
+    CONST CONFIG_CONFIGURATOR = 'consentcookie/configurator_settings';
+
+    /**
+     * Get extension configurations
      *
-     * @param bool $field
+     * @param $field
+     * @param string $area
      * @param null $scopeCode
      * @return mixed
      */
-    public function getSettings($field = false, $scopeCode = null)
+    public function getConfiguration($field, $area = self::CONFIG_GENERAL, $scopeCode = null)
     {
-        return $this->scopeConfig->getValue(self::CONFIG_CC . ($field ? '/' . $field : ''), \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $scopeCode);
+        return $this->scopeConfig->getValue($area . ($field ? '/' . $field : ''), \Magento\Store\Model\ScopeInterface::SCOPE_STORE, $scopeCode);
     }
 
     /**
      * Checks whether consentcookie is enabled.
      *
+     * @param string $area
+     * @param null $scopeCode
      * @return mixed
      */
-    public function isEnabled()
+    public function isEnabled($area = self::CONFIG_GENERAL, $scopeCode = null)
     {
-        return $this->getSettings('enable');
-    }
-
-    /**
-     * Gets the configuration.
-     *
-     * @return mixed
-     */
-    public function getConfiguration()
-    {
-        return $this->getSettings('configuration');
+        return $this->getConfiguration('enable', $area, $scopeCode);
     }
 
     /**
@@ -68,31 +66,60 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getOverrideAnalytics()
     {
-        return $this->getSettings('override_analytics');
+        return $this->getConfiguration('override_analytics');
     }
 
     /**
-     * Validates whether the configuration is proper JSON.
+     * Get CC configuration from system config
      *
-     * @todo validate against JSON schema
-     *
-     * @param null $configuration
-     * @return bool
+     * @param bool $validateJson
+     * @param null $scopeCode
+     * @return bool|mixed
      */
-    public function validateJSONConfiguration($configuration = null)
+    public function getConsentCookieConfiguration($validateJson = true, $scopeCode = null)
     {
-        if ($configuration === null) {
-            $configuration = $this->getConfiguration();
+        $configuration = $this->getConfiguration('configuration', self::CONFIG_CONFIGURATOR, $scopeCode);
+
+        if ($validateJson && !$this->validateConsentCookieConfiguration($configuration)) {
+            return false;
         }
 
-        if ($configuration) {
-            json_decode($this->getConfiguration());
-            if (json_last_error() === JSON_ERROR_NONE) {
-                return true;
-            }
-            $this->_logger->error('The ConsentCookie JSON configuration is invalid.');
+        return $configuration;
+    }
+
+    /**
+     * Validates JSON format
+     *
+     * @todo validate schema
+     *
+     * @param null $configuration
+     * @return bool|mixed|null
+     */
+    public function validateConsentCookieConfiguration($configuration = null)
+    {
+        if ($configuration === null) {
+            $configuration = $this->getConsentCookieConfiguration(false);
         }
+
+        json_decode($configuration);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $configuration;
+        }
+
+        $this->_logger->error('The ConsentCookie JSON configuration is invalid.');
         return false;
+    }
+
+    /**
+     * Validate the configuration against the schema
+     *
+     * @todo add schema validation using JsonSchema\Validator
+     *
+     * @return bool
+     */
+    public function validateSchema()
+    {
+        return true;
     }
 
 }

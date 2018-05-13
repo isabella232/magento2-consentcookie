@@ -50,22 +50,15 @@ class Configurator extends \Magento\Framework\View\Element\Template
      */
     public function isEnabled()
     {
-        return $this->helper->isEnabled();
+        return $this->helper->isEnabled($this->helper::CONFIG_CONFIGURATOR);
     }
 
     /**
-     * Get Consentcookie configuration
-     *
-     * @param bool $validate
      * @return bool|mixed
      */
-    public function getConfiguration($validate = true)
+    public function getConsentCookieConfiguration()
     {
-        $configuration = $this->helper->getConfiguration();
-        if ($validate && !$this->helper->validateJSONConfiguration($configuration)) {
-            return false;
-        }
-        return $configuration;
+        return $this->helper->getConsentCookieConfiguration();
     }
 
 }

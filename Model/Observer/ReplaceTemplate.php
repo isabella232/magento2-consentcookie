@@ -24,29 +24,37 @@ use Magento\Framework\Event\ObserverInterface;
  * Class RemoveBlock
  * @package Humanswitch\Consentcookie\Model\Observer
  */
-class ReplaceTemplate implements ObserverInterface {
+class ReplaceTemplate implements ObserverInterface
+{
 
-    protected $_scopeConfig;
+    /**
+     * @var \Humanswitch\Consentcookie\Helper\Config
+     */
+    protected $_helper;
 
+    /**
+     * ReplaceTemplate constructor.
+     * @param \Humanswitch\Consentcookie\Helper\Config $helper
+     */
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-    ) {
-        $this->_scopeConfig = $scopeConfig;
+        \Humanswitch\Consentcookie\Helper\Config $helper
+    )
+    {
+        $this->_helper = $helper;
     }
 
+    /**
+     * Replace GA template
+     *
+     * @param Observer $observer
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function execute(Observer $observer)
     {
-        /** @var \Magento\Framework\View\Layout $layout */
-        $layout = $observer->getLayout();
-        $block = $layout->getBlock('google_analytics');
+        if ($this->_helper->isEnabled() && $this->_helper->getOverrideAnalytics()) {
+            $block = $observer->getLayout()->getBlock('google_analytics');
 
-        if ($block) {
-            $remove = $this->_scopeConfig->getValue(
-                'consentcookie/general/override_analytics',
-                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-            );
-
-            if ($remove) {
+            if ($block) {
                 $block->setTemplate('Humanswitch_Consentcookie::ga.phtml');
             }
         }

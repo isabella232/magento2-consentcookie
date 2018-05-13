@@ -43,6 +43,11 @@ Copyright
 
 [Consentcookie for Magento 2 documentation](https://www.consentcookie.nl/documentation/start-direct/magento-2-plugin/)
 
+# Known issues
+
+__Changing settings do not seem to affect anything__
+
+Make sure all cache types are cleared after changing configurations. Not just the caches that are marked "invalid".
 
 # Changelog
 

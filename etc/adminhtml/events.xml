@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <!--
   ~    Copyright 2018 Humanswitch
   ~
@@ -15,10 +14,9 @@
   ~    See the License for the specific language governing permissions and
   ~    limitations under the License.
   -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <body>
-        <referenceContainer name="before.body.end">
-            <block class="Humanswitch\Consentcookie\Block\Consentcookie" name="consentcookie" as="consentcookie" template="Humanswitch_Consentcookie::consentcookie.phtml"/>
-        </referenceContainer>
-    </body>
-</page>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_load_before">
+        <observer name="humanswitch_consentcookie_configurator_assets" instance="Humanswitch\Consentcookie\Model\Observer\addAssets" />
+    </event>
+</config>
