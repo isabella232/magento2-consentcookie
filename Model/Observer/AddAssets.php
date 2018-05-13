@@ -21,16 +21,16 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 /**
- * Class RemoveBlock
+ * Class AddAssets
  * @package Humanswitch\Consentcookie\Model\Observer
  */
-class addAssets implements ObserverInterface
+class AddAssets implements ObserverInterface
 {
 
     /**
      * @var \Humanswitch\Consentcookie\Helper\Config
      */
-    protected $_helper;
+    private $helper;
 
     /**
      * addAssets constructor.
@@ -38,9 +38,9 @@ class addAssets implements ObserverInterface
      */
     public function __construct(
         \Humanswitch\Consentcookie\Helper\Config $helper
-    )
-    {
-        $this->_helper = $helper;
+    ) {
+    
+        $this->helper = $helper;
     }
 
     /**
@@ -51,14 +51,13 @@ class addAssets implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        if ($this->_helper->isEnabled($this->_helper::CONFIG_CONFIGURATOR)) {
+        if ($this->helper->isEnabled($this->helper::CONFIG_CONFIGURATOR)) {
 
             /** @var \Magento\Framework\View\Layout $layout */
             $layout = $observer->getLayout();
 
             if (\in_array('adminhtml_system_config_edit', $layout->getUpdate()->getHandles(), true)) {
-
-                if ($this->_helper->getConfiguration('method', $this->_helper::CONFIG_CONFIGURATOR) === 'cdn') {
+                if ($this->helper->getConfiguration('method', $this->helper::CONFIG_CONFIGURATOR) === 'cdn') {
                     $layout->getUpdate()->addUpdate('<head>
         <css src="//www.consentcookie.nl/configurator/static/css/app.css" src_type="url"/>
         <script src="//www.consentcookie.nl/configurator/static/js/manifest.js" src_type="url"/>
@@ -76,5 +75,4 @@ class addAssets implements ObserverInterface
             }
         }
     }
-
 }

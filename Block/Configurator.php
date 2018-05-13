@@ -27,7 +27,7 @@ class Configurator extends \Magento\Framework\View\Element\Template
     /**
      * @var \Humanswitch\Consentcookie\Helper\Config $helper
      */
-    protected $helper;
+    private $helper;
 
     /**
      * Consentcookie constructor.
@@ -37,8 +37,8 @@ class Configurator extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Humanswitch\Consentcookie\Helper\Config $helper
-    )
-    {
+    ) {
+    
         $this->helper = $helper;
         parent::__construct($context);
     }
@@ -60,5 +60,4 @@ class Configurator extends \Magento\Framework\View\Element\Template
     {
         return $this->helper->getConsentCookieConfiguration();
     }
-
 }

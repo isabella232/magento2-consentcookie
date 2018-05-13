@@ -29,12 +29,12 @@ use Magento\Backend\Block\Context;
 class Configurator extends AbstractBlock implements RendererInterface
 {
 
-    protected $_template = 'Humanswitch_Consentcookie::configurator.phtml';
+    private $template = 'Humanswitch_Consentcookie::configurator.phtml';
 
     /**
      * @var LayoutFactory
      */
-    protected $_viewLayoutFactory;
+    private $viewLayoutFactory;
 
     /**
      * Configurator constructor.
@@ -46,9 +46,9 @@ class Configurator extends AbstractBlock implements RendererInterface
         Context $context,
         LayoutFactory $viewLayoutFactory,
         array $data = []
-    )
-    {
-        $this->_viewLayoutFactory = $viewLayoutFactory;
+    ) {
+    
+        $this->viewLayoutFactory = $viewLayoutFactory;
 
         parent::__construct($context, $data);
     }
@@ -61,8 +61,8 @@ class Configurator extends AbstractBlock implements RendererInterface
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        return $this->_viewLayoutFactory->create()->createBlock('Humanswitch\Consentcookie\Block\Configurator')
-            ->setTemplate($this->_template)
+        return $this->viewLayoutFactory->create()->createBlock('Humanswitch\Consentcookie\Block\Configurator')
+            ->setTemplate($this->template)
             ->toHtml();
     }
 }

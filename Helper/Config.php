@@ -27,12 +27,12 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * ConsentCookie general settings path
      */
-    CONST CONFIG_GENERAL = 'consentcookie/general';
+    const CONFIG_GENERAL = 'consentcookie/general';
 
     /**
      * ConsentCookie configurator settings path
      */
-    CONST CONFIG_CONFIGURATOR = 'consentcookie/configurator_settings';
+    const CONFIG_CONFIGURATOR = 'consentcookie/configurator_settings';
 
     /**
      * Get extension configurations
@@ -121,5 +121,4 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return true;
     }
-
 }

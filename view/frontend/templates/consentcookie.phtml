@@ -17,16 +17,15 @@
 /**
  * @var \Humanswitch\Consentcookie\Block\Consentcookie $block
  */
-if ($block->isEnabled() && $configuration = $block->getConsentCookieConfiguration()): ?>
+if ($block->isEnabled() && $configuration = $block->getConsentCookieConfiguration()) : ?>
     <script type="text/javascript">
         require([
-            'jquery',
-            '<?php echo $block->getScriptSource() ?>'
-        ], function ($, ConsentCookie) {
+            '<?php echo $block->escapeJsQuote($block->getScriptSource()) ?>'
+        ], function (ConsentCookie) {
             'use strict';
 
             window.ConsentCookie = ConsentCookie;
-            window.ConsentCookie.init(<?php echo $configuration ?>);
+            window.ConsentCookie.init(<?php echo $block->escapeJsQuote($configuration) ?>);
 
             var CCInitEvent = new CustomEvent('CCInit', {
                 detail: {

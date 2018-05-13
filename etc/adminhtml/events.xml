@@ -17,6 +17,6 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="layout_load_before">
-        <observer name="humanswitch_consentcookie_configurator_assets" instance="Humanswitch\Consentcookie\Model\Observer\addAssets" />
+        <observer name="humanswitch_consentcookie_configurator_assets" instance="Humanswitch\Consentcookie\Model\Observer\AddAssets" />
     </event>
 </config>

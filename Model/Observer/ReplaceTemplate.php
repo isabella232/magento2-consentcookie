@@ -30,7 +30,7 @@ class ReplaceTemplate implements ObserverInterface
     /**
      * @var \Humanswitch\Consentcookie\Helper\Config
      */
-    protected $_helper;
+    private $helper;
 
     /**
      * ReplaceTemplate constructor.
@@ -38,9 +38,9 @@ class ReplaceTemplate implements ObserverInterface
      */
     public function __construct(
         \Humanswitch\Consentcookie\Helper\Config $helper
-    )
-    {
-        $this->_helper = $helper;
+    ) {
+    
+        $this->helper = $helper;
     }
 
     /**
@@ -51,7 +51,7 @@ class ReplaceTemplate implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        if ($this->_helper->isEnabled() && $this->_helper->getOverrideAnalytics()) {
+        if ($this->helper->isEnabled() && $this->helper->getOverrideAnalytics()) {
             $block = $observer->getLayout()->getBlock('google_analytics');
 
             if ($block) {
@@ -59,5 +59,4 @@ class ReplaceTemplate implements ObserverInterface
             }
         }
     }
-
 }
