@@ -4,7 +4,7 @@
     "type": "magento2-module",
     "homepage": "https://github.com/humanswitch/magento2-consentcookie",
     "license": "Apache-2.0",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "keywords": [
         "privacy",
         "AVG",
