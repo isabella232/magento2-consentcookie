@@ -39,7 +39,7 @@ class AddAssets implements ObserverInterface
     public function __construct(
         \Humanswitch\Consentcookie\Helper\Config $helper
     ) {
-    
+
         $this->helper = $helper;
     }
 
@@ -59,17 +59,17 @@ class AddAssets implements ObserverInterface
             if (\in_array('adminhtml_system_config_edit', $layout->getUpdate()->getHandles(), true)) {
                 if ($this->helper->getConfiguration('method', $this->helper::CONFIG_CONFIGURATOR) === 'cdn') {
                     $layout->getUpdate()->addUpdate('<head>
-        <css src="//www.consentcookie.nl/configurator/static/css/app.css" src_type="url"/>
-        <script src="//www.consentcookie.nl/configurator/static/js/manifest.js" src_type="url"/>
-        <script src="//www.consentcookie.nl/configurator/static/js/vendor.js" src_type="url"/>
-        <script src="//www.consentcookie.nl/configurator/static/js/app.js" src_type="url"/>
+        <css src="//cdn.humanswitch.services/cc/configurator/configurator-app.css" src_type="url"/>
+        <script src="//cdn.humanswitch.services/cc/configurator/configurator-manifest.js" src_type="url"/>
+        <script src="//cdn.humanswitch.services/cc/configurator/configurator-vendor.js" src_type="url"/>
+        <script src="//cdn.humanswitch.services/cc/configurator/configurator-app.js" src_type="url"/>
         </head>');
                 } else {
                     $layout->getUpdate()->addUpdate('<head>
-        <css src="Humanswitch_Consentcookie::consentcookie/css/app.css"/>
-        <script src="Humanswitch_Consentcookie::consentcookie/js/manifest.js"/>
-        <script src="Humanswitch_Consentcookie::consentcookie/js/vendor.js"/>
-        <script src="Humanswitch_Consentcookie::consentcookie/js/app.js"/>
+        <css src="Humanswitch_Consentcookie::consentcookie/configurator-app.css"/>
+        <script src="Humanswitch_Consentcookie::consentcookie/configurator-manifest.js"/>
+        <script src="Humanswitch_Consentcookie::consentcookie/configurator-vendor.js"/>
+        <script src="Humanswitch_Consentcookie::consentcookie/configurator-app.js"/>
         </head>');
                 }
             }
